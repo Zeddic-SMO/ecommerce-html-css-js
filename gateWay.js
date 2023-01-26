@@ -14,7 +14,7 @@ function makePayment() {
     tx_ref: "ZeddicStore",
     amount: totalPrice,
     currency: "NGN",
-    redirect_url: "https://glaciers.titanic.com/handle-flutterwave-payment",
+    redirect_url: "https://ecommerce-html-css-js.netlify.app/",
     customer: {
       email: userEmail,
       phone_number: phone,
