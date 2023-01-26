@@ -13,6 +13,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+h1 a {
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+}
 header {
   position: sticky;
   top: 0;
@@ -158,6 +163,27 @@ tr {
   color: red;
   padding: 3px;
 }
+.totalCheckOut {
+  position: absolute;
+  bottom: calc(100vh - 75vh);
+}
+
+.checkOutBtn {
+  margin: 0px 35px;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  background: var(--primary-clr);
+  border: none;
+  cursor: pointer;
+}
+.checkOutBtn:hover {
+  background: var(--auxillary-clr);
+  border: 1px solid var(--primary-clr);
+  color: var(--primary-clr);
+}
+/* End of Cart Section */
+
 /* Hero Section */
 .banner {
   /* width: 950px; */
@@ -166,4 +192,8 @@ tr {
   object-fit: cover;
   background-position: center;
   background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

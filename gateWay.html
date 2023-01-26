@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CheckOut</title>
+        <link rel="stylesheet" href="./checkOut.css">
+        <script src="https://checkout.flutterwave.com/v3.js" async></script>
+        <script src="./checkOut.js" async></script>
+        <script src="./gateWay.js" async></script>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <div class="logo">
+                    <h1><a href="./index.html">ZeddicStore</a></h1>
+                </div>
+                <div id="navBar" class="navBar">
+                    <span class="number-cart-items">0</span>
+                    <img src="./img/cartPng.png" />
+
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="order">
+                <form>
+                    <p>Input your information below to complete your transaction</p>
+                    <br />
+                    <div class="inputTag">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" name="fullName" id="fullName" value="" required>
+                    </div>
+                    <div class="inputTag">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" value="" required>
+                    </div>
+                    <div class="inputTag">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" value="" required>
+                    </div>
+
+                    <div class="payNow" id="submitToGateWay">SUBMIT</div>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2023 - Samuel M. O || ITSkills Center</p>
+        </footer>
+    </body>
+
+</html>

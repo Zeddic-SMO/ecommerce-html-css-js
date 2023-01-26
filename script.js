@@ -96,6 +96,7 @@ function updateCartList(image, category, price, title) {
 
   const tbody = document.getElementsByTagName("tbody")[0]
   let tr = document.createElement("tr")
+  tr.classList.add("cart-items-row")
 
   let td = `
   <td style='width:40%; padding:0px 4px'>
@@ -104,7 +105,7 @@ function updateCartList(image, category, price, title) {
    </td>  
   <td style='width:25%; padding:0px 4px'>${category}</td> 
    <td style='width:10%; padding:0px 4px'><input type='number' value='1'style='width:100%' class="qtyValues"/></td>  
-  <td style='width:10%'><b>$</b>${price}</td>
+  <td style='width:10%' class="price"><b>$</b>${price}</td>
   <td style='width:20%'><button class='remove-cartItem'>REMOVE</button></td>
   `
   tr.innerHTML = td
@@ -116,6 +117,7 @@ function updateCartList(image, category, price, title) {
 }
 
 function updateCartListNumber() {
+  // Updating the number on the cart
   const tBody = document.getElementsByTagName("tbody")[0]
 
   const qtyEls = tBody.getElementsByClassName("qtyValues")
@@ -128,15 +130,55 @@ function updateCartListNumber() {
 
   document.getElementsByClassName("number-cart-items")[0].textContent = totalQty
 
+  // calculating the TOTAL of prices
+  const priceElements = tBody.getElementsByClassName("price")
+  let totalPrice = 0
+  for (let priceItem of priceElements) {
+    totalPrice += parseFloat(priceItem.textContent.replace("$", ""))
+  }
+
+  document.getElementById("total").innerText = totalPrice
+
   // Remove from Cart Button event button
   const removeFromCartButtons = tBody.getElementsByClassName("remove-cartItem")
   for (let removeBtn of removeFromCartButtons) {
     removeBtn.addEventListener("click", removeFromCart)
   }
+
+  // purchase Function call with parameters
+  const chkOutBtn = document.getElementsByClassName("checkOutBtn")[0]
+  chkOutBtn.addEventListener("click", purchaseItems)
 }
 
 // Remove from Cart Function triggered by the event button
 function removeFromCart(e) {
+  const decision = confirm("Are you sure you want to REMOVE item?")
+  if (!decision) {
+    return
+  }
   e.target.parentElement.parentElement.remove()
   updateCartListNumber()
+}
+
+function purchaseItems() {
+  const cartItemsRow = document.getElementsByClassName("cart-items-row")
+
+  let customerOrder = []
+  for (let row of cartItemsRow) {
+    const itemTitle = row.getElementsByClassName("item-title")[0].textContent
+    const itemPrice = parseFloat(
+      row.getElementsByClassName("price")[0].textContent.replace("$", "")
+    )
+    const itemQty = parseInt(row.getElementsByClassName("qtyValues")[0].value)
+
+    // sending the customer order into the object
+    customerOrder.push({
+      title: itemTitle,
+      price: itemPrice,
+      qty: itemQty,
+    })
+  }
+
+  localStorage.setItem("customerOrder", JSON.stringify(customerOrder))
+  window.open("./checkOut.html", "_blank")
 }
