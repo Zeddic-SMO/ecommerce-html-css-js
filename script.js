@@ -116,28 +116,23 @@ function updateCartList(image, category, price, title) {
   updateCartListNumber()
 }
 
+//
 function updateCartListNumber() {
-  // Updating the number on the cart
+  // Updating the number on the cart by looking through the quantity class and keeping count
   const tBody = document.getElementsByTagName("tbody")[0]
-
   const qtyEls = tBody.getElementsByClassName("qtyValues")
-
   let totalQty = 0
-
   for (let qty of qtyEls) {
     totalQty += parseInt(qty.value)
-  }
 
+    qty.addEventListener("change", incrementDecrement)
+  }
   document.getElementsByClassName("number-cart-items")[0].textContent = totalQty
+  // ****************************************************************************************
 
   // calculating the TOTAL of prices
-  const priceElements = tBody.getElementsByClassName("price")
-  let totalPrice = 0
-  for (let priceItem of priceElements) {
-    totalPrice += parseFloat(priceItem.textContent.replace("$", ""))
-  }
-
-  document.getElementById("total").innerText = totalPrice
+  calTotalPrice()
+  // ***************************************************************************************
 
   // Remove from Cart Button event button
   const removeFromCartButtons = tBody.getElementsByClassName("remove-cartItem")
@@ -149,6 +144,38 @@ function updateCartListNumber() {
   const chkOutBtn = document.getElementsByClassName("checkOutBtn")[0]
   chkOutBtn.addEventListener("click", purchaseItems)
 }
+// *************************************************************************************
+// *************************************************************************************
+
+// This function calculates the total Price
+function calTotalPrice() {
+  const tBody = document.getElementsByTagName("tbody")[0]
+  // console.log(tBody)
+
+  const priceElements = tBody.getElementsByClassName("cart-items-row")
+  let totalPrice = 0
+  for (let priceItem of priceElements) {
+    const price = parseFloat(
+      priceItem.getElementsByClassName("price")[0].textContent.replace("$", "")
+    )
+
+    const quantity = parseInt(
+      priceItem.getElementsByClassName("qtyValues")[0].value
+    )
+
+    totalPrice = totalPrice + price * quantity
+  }
+  document.getElementById("total").innerText = totalPrice.toFixed(2)
+}
+function incrementDecrement(e) {
+  const input = e.target
+  if (input.value < 1) {
+    input.value = 1
+  }
+  calTotalPrice()
+}
+// ************************************************************************************
+// ************************************************************************************
 
 // Remove from Cart Function triggered by the event button
 function removeFromCart(e) {
@@ -159,7 +186,10 @@ function removeFromCart(e) {
   e.target.parentElement.parentElement.remove()
   updateCartListNumber()
 }
+// ***************************************************************************************
+// ***************************************************************************************
 
+// This functions checks all the customer orders, collects and store in the local storage then open another page
 function purchaseItems() {
   const cartItemsRow = document.getElementsByClassName("cart-items-row")
 
@@ -180,5 +210,7 @@ function purchaseItems() {
   }
 
   localStorage.setItem("customerOrder", JSON.stringify(customerOrder))
-  window.open("./checkOut.html", "_blank")
+  window.open("./checkOut.html", "_self")
 }
+// *******************************************************************************************
+// *******************************************************************************************
