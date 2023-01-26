@@ -75,6 +75,7 @@ nav {
   box-shadow: 0px 2px 2px var(--auxillary-clr);
   margin: 25px;
   padding: 25px;
+  border-radius: 8px;
 }
 .image {
   height: 300px;
@@ -118,6 +119,12 @@ nav {
   padding: 0px 25px;
   background-color: var(--second-auxillary-clr);
   display: none;
+}
+
+@media (max-width: 678px) {
+  .cartSection {
+    width: 99%;
+  }
 }
 
 .open {
